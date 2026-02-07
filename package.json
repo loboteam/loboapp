@@ -8,11 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.95.3",
     "next": "^16.1.6",
     "nodemailer": "^8.0.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "sqlite": "^5.1.1"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
