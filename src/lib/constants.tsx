@@ -66,9 +66,8 @@ export const APP_THEME = {
 export const ENDPOINTS = {
     login: {
         staff: "/login/staff",
-        student: ""
+        student: "/login/student"
     },
-    logout: "",
     newReservation: "",
     killReservation: "",
     ADMIN: {

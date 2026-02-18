@@ -22,7 +22,7 @@ export const UserPwdBoxes: React.FC = () => {
     </>
 };
 
-export const UserLoginButtons: React.FC<{children: React.ReactNode}> = ({children})=>{
+export const UserLoginButtons: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { logIn } = useLogin();
     const efun = (fun: (...args: any[]) => void, ...rest: any[]) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { e?.preventDefault(); fun(...rest); }
     return <>
@@ -30,8 +30,13 @@ export const UserLoginButtons: React.FC<{children: React.ReactNode}> = ({childre
             Entrar como Estudiante
         </Button>
         {children}
-        <Button variant="secondary" onClick={efun(()=>logIn(true))}>
+        <Button variant="secondary" onClick={efun(() => logIn(true))}>
             Entrar como Administrador
         </Button>
     </>
+};
+
+export const UserRemember: React.FC = ()=>{
+    const { perma, setPerma } = useLogin();
+    return <Input type="checkbox" className="hidden" value={perma} bindTo={setPerma} />;
 }

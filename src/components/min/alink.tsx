@@ -17,8 +17,8 @@ export interface ALinkParams {
 }
 
 const ALink: React.FC<ALinkParams> = ({ to, icon, children, type, activeClass, classes }: ALinkParams) =>
-    <Link href={to} className={`${classes ? Array.isArray(classes) ? classes.join(" ") : classes : Array.isArray(type) ? type.join(" ") : type}${type!==undefined && type.length > 0 ? " " : ""}${isActive(to) ? activeClass ?? 'r-link-active' : ''}`}>
-        {icon !== undefined ? icon : ''}
+    <Link href={to} className={`r-link-active:text-slate-500 r-link-active:italic r-link-active:pointer-events-none${(classes ?? type ?? false) ? " " : ""}${Array.isArray(classes) ? classes.join(" ") : (classes ?? false) ? classes : Array.isArray(type) ? type.join(" ") : (type ?? false) ? type : ""}${(classes ?? type ?? isActive(to)) ? " " : ""}${isActive(to) ? (activeClass ?? 'r-link-active') : ''}`}>
+        {(icon ?? false) ? icon : ''}
         <span>{children}</span>
     </Link>;
 

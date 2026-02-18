@@ -1,5 +1,5 @@
-const localGet = (name: string)=>new Promise((yes,no)=>{
-    const a = localStorage.getItem(name);
+const localGet = (name: string)=>new Promise<string>((yes,no)=>{
+    const a: string | null = localStorage.getItem(name);
     if (a === null) return no(`"${name}" does not exist in localStorage.`);
     return yes(a);
 });

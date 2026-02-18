@@ -30,7 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 {children}
                 <footer>
                     <p className="mt-12 text-center text-[10px] font-black uppercase tracking-[0.3em]">
-                        U.N. Campus Virtual &copy; 2025
+                        DS02SV-25 &copy; 2025
                     </p>
                 </footer>
             </main>

@@ -14,8 +14,8 @@ const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-72 p
     </div>
 
     <nav className="flex-1 space-y-2">
-        <ALink to="/dashboard" icon={ICONS.Dashboard}>Dashboard</ALink>
-        <ALink to="/reservas" icon={ICONS.Reservations}>Reservar</ALink>
+        <ALink to="/" icon={ICONS.Dashboard}>Dashboard</ALink>
+        <ALink to="/reservar" icon={ICONS.Reservations}>Reservar</ALink>
         <ALink to="/disponibilidad" icon={ICONS.Stats}>Disponibilidad</ALink>
         <ALink to="/mis-reservas" icon={ICONS.MyReservations}>Mis Reservas</ALink>
     </nav>

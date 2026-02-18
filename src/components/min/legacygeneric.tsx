@@ -68,7 +68,7 @@ export const Input: React.FC<{
     label?: string,
     type?: 'select' | 'textarea' | string,
     placeholder?: string,
-    value?: string | number,
+    value?: any,
     bindTo?: Dispatch<SetStateAction<any>>,
     onChange?: any,
     className?: string,

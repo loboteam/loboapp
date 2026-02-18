@@ -2,7 +2,7 @@ import React from 'react';
 import { GlassCard, Button, Input } from "@/components/min/legacygeneric";
 import { APP_THEME } from "@/lib/constants";
 import LoginContext from '@/stores/login';
-import { UserLoginButtons, UserPwdBoxes } from '@/components/min/login';
+import { UserLoginButtons, UserPwdBoxes, UserRemember } from '@/components/min/login';
 
 const Login: React.FC = () => <div className="relative w-full flex items-center justify-center overflow-hidden">
     {/* Background Orbs */}
@@ -26,7 +26,7 @@ const Login: React.FC = () => <div className="relative w-full flex items-center 
 
                 <div className="flex items-center justify-between px-1">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                        <input type="checkbox" className="hidden" />
+                        <UserRemember />
                         <div className="w-4 h-4 rounded border border-slate-300 flex items-center justify-center group-has-checked:bg-teal-500 transition-all">
                             <div className="w-1.5 h-1.5 rounded-sm bg-white opacity-0 group-has-checked:opacity-100 transition-all"></div>
                         </div>

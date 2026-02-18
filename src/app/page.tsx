@@ -30,13 +30,13 @@ const Dash = () => <div className="space-y-8 fade-in">
     {/* ENLACES ESTRATÉGICOS (Mapa del Sitio) */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <IfLogged>
-            <ALink to="/reservas">
+            <ALink to="/reservar">
                 <GlassCard hover className="h-full border-teal-500/20 bg-teal-500/5 group">
                     <div className="flex flex-col items-center text-center py-6">
                         <div className="w-16 h-16 rounded-4xl bg-teal-400/20 text-teal-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             {ICONS.Reservations}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Enlace a Reservas</h3>
+                        <h3 className="text-xl font-bold mb-2">Haz una reservación</h3>
                         <p className="text-xs text-slate-500 px-4 leading-relaxed">Agenda un espacio disponible por hora de forma inmediata.</p>
                     </div>
                 </GlassCard>
@@ -48,7 +48,7 @@ const Dash = () => <div className="space-y-8 fade-in">
                         <div className="w-16 h-16 rounded-4xl bg-blue-400/20 text-blue-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             {ICONS.MyReservations}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Mis Reservas</h3>
+                        <h3 className="text-xl font-bold mb-2">Mis reservas</h3>
                         <p className="text-xs text-slate-500 px-4 leading-relaxed">Consulta tus activos, historial y estadísticas personales.</p>
                     </div>
                 </GlassCard>
@@ -62,20 +62,12 @@ const Dash = () => <div className="space-y-8 fade-in">
                         <div className="w-16 h-16 rounded-4xl bg-purple-400/20 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             {ICONS.Stats}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Estadísticas Admin</h3>
+                        <h3 className="text-xl font-bold mb-2">Estadísticas</h3>
                         <p className="text-xs text-slate-500 px-4 leading-relaxed">Analiza el rendimiento global y la ocupación del campus.</p>
                     </div>
                 </GlassCard>
             </ALink>
         </IfAdmin>
-        <IfNotAdmin>
-            <GlassCard className="h-full border-white/5 opacity-50 flex items-center justify-center text-center">
-                <div className="p-8">
-                    <div className="text-slate-700 mb-4">{ICONS.Admin}</div>
-                    <p className="text-[10px] font-bold text-slate-800 uppercase tracking-widest">Información reservada para administración</p>
-                </div>
-            </GlassCard>
-        </IfNotAdmin>
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-4">

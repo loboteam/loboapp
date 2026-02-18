@@ -9,7 +9,7 @@ export const UserGloss: React.FC = () => {
         </div>
         <div className="flex-1 overflow-hidden">
             <div className="text-sm font-bold truncate">{user.name}</div>
-            <div className="text-[10px] text-slate-500 truncate">{user.admin ? 'Staff Universitario' : 'Estudiante Activo'}</div>
+            <div className="text-[10px] text-slate-500 truncate">{user.staff ? 'Staff Universitario' : 'Estudiante Activo'}</div>
         </div>
     </> : "Not logged in.";
 };
