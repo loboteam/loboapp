@@ -23,14 +23,14 @@ export const UserPwdBoxes: React.FC = () => {
 };
 
 export const UserLoginButtons: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { logIn } = useLogin();
+    const { logIn, isLogging } = useLogin();
     const efun = (fun: (...args: any[]) => void, ...rest: any[]) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { e?.preventDefault(); fun(...rest); }
     return <>
-        <Button onClick={efun(logIn)}>
+        <Button disabled={isLogging} onClick={efun(logIn)}>
             Entrar como Estudiante
         </Button>
         {children}
-        <Button variant="secondary" onClick={efun(() => logIn(true))}>
+        <Button disabled={isLogging} variant="secondary" onClick={efun(() => logIn(true))}>
             Entrar como Administrador
         </Button>
     </>
