@@ -6,7 +6,7 @@ import UserGloss from "@/components/med/usergloss";
 const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-72 p-6 glass-dark border-r border-white/5 h-screen sticky top-0">
     <div className="mb-10 flex items-center gap-3 px-2">
         <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${APP_THEME.gradientPrimary} flex items-center justify-center shadow-lg`}>
-            <span className="font-black text-xl">L</span>
+            <span className="font-black text-xl text-white">L</span>
         </div>
         <div>
             <h1 className="text-xl font-bold tracking-tight leading-none">LoboApp</h1>
@@ -16,7 +16,6 @@ const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-72 p
     <nav className="flex-1 space-y-2">
         <ALink to="/" icon={ICONS.Dashboard}>Dashboard</ALink>
         <ALink to="/reservar" icon={ICONS.Reservations}>Reservar</ALink>
-        <ALink to="/disponibilidad" icon={ICONS.Stats}>Disponibilidad</ALink>
         <ALink to="/mis-reservas" icon={ICONS.MyReservations}>Mis Reservas</ALink>
     </nav>
 

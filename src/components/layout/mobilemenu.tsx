@@ -12,7 +12,6 @@ export const MobileMenu = () => {
             <div className="absolute right-0 top-0 h-full w-64 glass p-6 space-y-4" onClick={e => e.stopPropagation()}>
                 <ALink to="/dashboard" icon={ICONS.Dashboard}>Dashboard</ALink>
                 <ALink to="/reservar" icon={ICONS.Reservations}>Reservar</ALink>
-                <ALink to="/disponibilidad" icon={ICONS.Stats}>Disponibilidad</ALink>
                 <ALink to="/mis-reservas" icon={ICONS.MyReservations}>Mis Reservas</ALink>
                 <IfAdmin>
                     <ALink to="/admin" icon={ICONS.Admin}>Admin</ALink>

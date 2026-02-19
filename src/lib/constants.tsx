@@ -39,6 +39,7 @@ export const ICONS = {
   Maintenance: <AlertTriangle size={20} />,
   Download: <Download size={20} />,
   Star: <Star size={16} />,
+  StarFilled: <Star size={16} fill='currentColor' />,
   Trash: <Trash2 size={18} />,
   Plus: <PlusCircle size={18} />,
   File: <FileText size={18} />,
@@ -68,6 +69,7 @@ export const ENDPOINTS = {
         staff: "/login/staff",
         student: "/login/student"
     },
+    getSpaces: "/spaces",
     newReservation: "",
     killReservation: "",
     ADMIN: {

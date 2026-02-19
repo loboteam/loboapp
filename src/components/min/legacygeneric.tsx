@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, Dispatch, InputEventHandler, MouseEventHandler, SetStateAction } from 'react';
+import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { APP_THEME } from "@/lib/constants";
 
 export const GlassCard: React.FC<{
@@ -72,7 +72,7 @@ export const Input: React.FC<{
     bindTo?: Dispatch<SetStateAction<any>>,
     onChange?: any,
     className?: string,
-    options?: { value: string, label: string }[]
+    options?: { value: string | number, label: string }[]
 }> = ({ label, type = 'text', placeholder, value, onChange = null, className = '', options = [], bindTo = null }) => {
     const onchange = (e: any) => {
         if (bindTo) bindTo(e?.target?.value);
@@ -82,27 +82,27 @@ export const Input: React.FC<{
         {label && <label className="text-xs font-bold text-slate-500 px-1 uppercase tracking-wider">{label}</label>}
         {type === 'select' ? (
             <select
-                value={value}
+                value={value ?? ""}
                 onChange={onchange}
-                className="w-full glass-dark border border-white/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all text-slate-200"
+                className="w-full glass-dark border border-slate/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all text-slate-200"
             >
                 {options.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
             </select>
         ) : type === 'textarea' ? (
             <textarea
                 placeholder={placeholder}
-                value={value}
+                value={value ?? ""}
                 onChange={onchange}
                 rows={4}
-                className="w-full glass-dark border border-white/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all placeholder:text-slate-300 text-slate-600"
+                className="w-full glass-dark border border-slate/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all placeholder:text-slate-300 text-slate-600"
             />
         ) : (
             <input
                 type={type}
                 placeholder={placeholder}
-                value={value}
+                value={value ?? ""}
                 onChange={onchange}
-                className="w-full glass-dark border border-white/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all placeholder:text-slate-300 text-slate-600"
+                className="w-full glass-dark border border-slate/10 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-teal-500/50 transition-all placeholder:text-slate-300 text-slate-600"
             />
         )}
     </div>
@@ -116,8 +116,8 @@ export const Modal: React.FC<{
 }> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md fade-in">
-      <div className="glass w-full max-w-lg rounded-4xl overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-950/3 backdrop-blur-md fade-in">
+      <div className="glass w-full max-w-lg rounded-4xl overflow-hidden shadow-2xl bg-white">
         <div className="p-8 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">{title}</h2>
