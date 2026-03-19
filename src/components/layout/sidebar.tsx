@@ -1,33 +1,42 @@
-import { ICONS, APP_THEME } from "@/lib/constants";
+import { ICONS } from "@/lib/constants";
 import ALink from "@/components/min/alink";
 import { LogoutButton } from "@/stores/user";
 import UserGloss from "@/components/med/usergloss";
 
-const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-72 p-6 glass-dark border-r border-white/5 h-screen sticky top-0">
-    <div className="mb-10 flex items-center gap-3 px-2">
-        <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${APP_THEME.gradientPrimary} flex items-center justify-center shadow-lg`}>
-            <span className="font-black text-xl text-white">L</span>
-        </div>
-        <div>
-            <h1 className="text-xl font-bold tracking-tight leading-none">LoboApp</h1>
+const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 h-screen sticky top-0 shadow-sm">
+    {/* Logo */}
+    <div className="p-6 border-b border-gray-200">
+        <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center shadow-md">
+                <span className="font-bold text-lg text-white">L</span>
+            </div>
+            <h1 className="text-lg font-bold text-gray-900">LoboApp</h1>
         </div>
     </div>
 
-    <nav className="flex-1 space-y-2">
-        <ALink to="/" icon={ICONS.Dashboard}>Dashboard</ALink>
-        <ALink to="/reservar" icon={ICONS.Reservations}>Reservar</ALink>
-        <ALink to="/mis-reservas" icon={ICONS.MyReservations}>Mis Reservas</ALink>
+    {/* Navigation */}
+    <nav className="flex-1 p-4 space-y-1">
+        <ALink to="/" icon={ICONS.Dashboard} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
+            Dashboard
+        </ALink>
+        <ALink to="/reservar" icon={ICONS.Reservations} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
+            Reservar
+        </ALink>
+        <ALink to="/mis-reservas" icon={ICONS.MyReservations} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
+            Mis Reservas
+        </ALink>
     </nav>
 
-    <div className="mt-auto pt-6 border-t border-white/5">
-        <div className="px-4 mb-4 flex items-center gap-3">
+    {/* User Section */}
+    <div className="p-4 border-t border-gray-200 space-y-3">
+        <div className="px-4 py-3 bg-gray-50 rounded-lg">
             <UserGloss />
         </div>
         <LogoutButton
-            classes={["flex", "items-center", "gap-3", "px-4", "py-3", "w-full", "rounded-xl", "text-slate-400", "hover:text-red-400", "hover:bg-red-400/10", "transition-all", "duration-300"]}
+            classes={["flex", "items-center", "gap-3", "px-4", "py-3", "w-full", "rounded-lg", "text-gray-700", "hover:bg-red-50", "hover:text-red-600", "transition-all", "duration-200", "font-medium"]}
         >
             {ICONS.Logout}
-            <span className="font-medium">Salir del Sistema</span>
+            <span>Salir</span>
         </LogoutButton>
     </div>
 </aside>;

@@ -23,15 +23,32 @@ export const UserPwdBoxes: React.FC = () => {
 };
 
 export const UserLoginButtons: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { logIn } = useLogin();
-    const efun = (fun: (...args: any[]) => void, ...rest: any[]) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { e?.preventDefault(); fun(...rest); }
+    const { logIn, id, pwd, error, loading } = useLogin();
+    
+    const efun = (fun: (...args: any[]) => void, ...rest: any[]) => async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { 
+        e?.preventDefault();
+        try {
+            await fun(...rest);
+        } catch (err: any) {
+            // Error is handled in context
+        }
+    }
+    
+    const isDisabled = !id || !pwd || loading;
+    
     return <>
-        <Button onClick={efun(logIn)}>
-            Entrar como Estudiante
+        {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg animate-pulse">
+                <p className="text-sm font-semibold text-red-700">Error de autenticación</p>
+                <p className="text-sm text-red-600 mt-1">{error}</p>
+            </div>
+        )}
+        <Button onClick={efun(logIn)} disabled={isDisabled} className="w-full">
+            {loading ? "Cargando..." : "Entrar como Estudiante"}
         </Button>
         {children}
-        <Button variant="secondary" onClick={efun(() => logIn(true))}>
-            Entrar como Administrador
+        <Button variant="secondary" onClick={efun(() => logIn(true))} disabled={isDisabled} className="w-full">
+            {loading ? "Cargando..." : "Entrar como Administrador"}
         </Button>
     </>
 };

@@ -13,6 +13,10 @@ type LoginContextContainer = {
     setPwd: Dispatch<SetStateAction<string>>,
     setPerma: Dispatch<SetStateAction<boolean>>,
     logIn: (staff?: boolean) => Promise<void>,
+    error: string | null,
+    setError: Dispatch<SetStateAction<string | null>>,
+    loading: boolean,
+    setLoading: Dispatch<SetStateAction<boolean>>,
 };
 
 export const LoginContext_Bare = createContext<LoginContextContainer | null>(null);
@@ -21,16 +25,45 @@ const LoginContext: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const [id, setId] = useState<string>("");
     const [pwd, setPwd] = useState<string>("");
     const [perma, setPerma] = useState<boolean>(false);
-    const logIn = (staff: boolean=false) => {
-        if (id.length > 1 && pwd.length > 1)
-            return sha512(pwd).then(pwdHash => fetch(ENDPOINTS.login[staff ? "staff" : "student"], { method: "POST", body: JSON.stringify({ id, pwdHash }) })).then(r => r.json()).then((r: User | undefined) => {
-                setUser(r);
-                if (perma) localSet("token", r?.token)
-            }).catch(e => console.error("Ack! Bad login action! Got: ", e));
-       throw new Error("incomplete login info!");
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+    
+    const logIn = async (staff: boolean=false) => {
+        if (id.length < 2 || pwd.length < 2) {
+            setError("Por favor completa todos los campos");
+            throw new Error("incomplete login info!");
+        }
+        
+        setError(null);
+        setLoading(true);
+        
+        try {
+            const pwdHash = await sha512(pwd);
+            const response = await fetch(ENDPOINTS.login[staff ? "staff" : "student"], { 
+                method: "POST", 
+                body: JSON.stringify({ id, pwdHash }) 
+            });
+            
+            const data = await response.json();
+            
+            if (!data || !data.token) {
+                setError("Credenciales inválidas. Verifica tu matrícula y contraseña.");
+                setLoading(false);
+                throw new Error("Invalid credentials");
+            }
+            
+            setUser(data);
+            if (perma) localSet("token", data?.token);
+            setLoading(false);
+        } catch (e: any) {
+            const errorMsg = e.message || "Error al iniciar sesión. Intenta de nuevo.";
+            setError(errorMsg);
+            setLoading(false);
+            throw e;
+        }
     }
 
-    return <LoginContext_Bare.Provider value={{id, setId, pwd, setPwd, logIn, perma, setPerma}}>{children}</LoginContext_Bare.Provider>
+    return <LoginContext_Bare.Provider value={{id, setId, pwd, setPwd, logIn, perma, setPerma, error, setError, loading, setLoading}}>{children}</LoginContext_Bare.Provider>
 };
 
 export const useLogin = () => {

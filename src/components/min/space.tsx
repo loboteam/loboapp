@@ -3,31 +3,59 @@ import { ICONS } from "@/lib/constants";
 import { OpenReservationButton, SpaceParams } from "@/stores/space";
 
 export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
-    const isBusy = (time: number)=>space.taken.some(r=>time > r.from && time < r.to);
-    return <GlassCard className="flex flex-col gap-8 shadow-2xl shadow-slate-300 overflow-hidden group">
-        <div className="flex flex-col">
-            <div>
-                <h3 className="text-2xl font-bold tracking-tight">{space.type} {space.number}, edif. {space.location}</h3>
-                <div className="flex items-center gap-1 text-amber-400 font-bold text-sm">
-                    {Array(5).fill(ICONS.Star).map((_h,i)=>i < (space.rating || 0) ? ICONS.StarFilled : ICONS.Star)} {space.rating ?? "Sin reseñas todavía."}
+    const isBusy = (time: number) => space.taken && Array.isArray(space.taken) ? space.taken.some(r=>time > r.from && time < r.to) : false;
+    
+    return (
+        <GlassCard className="flex flex-col gap-6 overflow-hidden group hover:shadow-lg transition-shadow">
+            {/* Header */}
+            <div className="flex flex-col gap-3">
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900">{space.type} {space.number}</h3>
+                    <p className="text-sm text-gray-600">Edificio {space.location}</p>
                 </div>
-                <div className="mt-4 flex flex-col gap-2 text-slate-400 text-sm font-medium">
-                    <div className="flex items-center gap-2">{ICONS.Capacity} Hasta {space.cupo} personas</div>
+                
+                {/* Rating */}
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 text-yellow-400">
+                        {Array(5).fill(null).map((_h, i) => (
+                            <span key={`star-${i}`}>
+                                {i < (space.rating || 0) ? ICONS.StarFilled : ICONS.Star}
+                            </span>
+                        ))}
+                    </div>
+                    <span className="text-xs text-gray-600">{space.rating ? `${space.rating}★` : "Sin reseñas"}</span>
                 </div>
-            </div>
-            <OpenReservationButton space={space} status={space.status} />
-        </div>
 
-        <div className="flex-1">
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] block mb-4">Disponibilidad</span>
-            <div className="grid grid-cols-6 sm:grid-cols-12 gap-2">
-                {space.status && Array(space.cierra! - space.abre!).map((_h, i) => <div key={i} className="flex flex-col items-center gap-2">
-                    <div className={`w-full h-16 rounded-xl border border-white/5 transition-all duration-300 ${isBusy(space.abre! + i) ? 'bg-slate-800' : 'bg-teal-500/10 hover:bg-teal-500/30 cursor-pointer border-teal-500/20'}`}></div>
-                    <span className="text-[10px] font-bold text-slate-600">{space.abre! + i}:00</span>
-                </div>)}
+                {/* Info */}
+                <div className="flex items-center gap-2 text-sm text-gray-700">
+                    {ICONS.Capacity}
+                    <span>Hasta {space.cupo} personas</span>
+                </div>
             </div>
-        </div>
-    </GlassCard>
+
+            {/* Availability */}
+            <div className="border-t border-gray-200 pt-4">
+                <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-3">Disponibilidad por hora</p>
+                <div className="grid grid-cols-6 gap-1.5">
+                    {space.status && Array.from({ length: space.cierra! - space.abre! }).map((_h, i) => (
+                        <div key={`hour-${space.sid}-${i}`} className="flex flex-col items-center gap-1">
+                            <div className={`w-full h-10 rounded-md border transition-all duration-300 ${
+                                isBusy(space.abre! + i) 
+                                    ? 'bg-red-100 border-red-300' 
+                                    : 'bg-green-50 border-green-300 hover:bg-green-100 cursor-pointer'
+                            }`}></div>
+                            <span className="text-[10px] font-semibold text-gray-600">{space.abre! + i}h</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Action Button */}
+            <div className="mt-2">
+                <OpenReservationButton space={space} status={space.status} />
+            </div>
+        </GlassCard>
+    );
 };
 
 export default Space;
