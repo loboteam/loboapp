@@ -1,14 +1,14 @@
 "use client";
 import { ENDPOINTS } from "@/lib/constants";
 import { SpaceParams, useSpace } from "@/stores/space";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Space from "@/components/min/space";
 import { Button } from "../min/legacygeneric";
 
 const SpaceCollection: React.FC = () => {
     const { spaces, setSpaces, type, cupo } = useSpace();
     const [page, setPage] = useState(1);
-    const [loadable, setLoadable] = useState(false);
+    const [loadable, setLoadable] = useState(true);
     const [timeout, setTimeoutNum] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
     
@@ -29,6 +29,7 @@ const SpaceCollection: React.FC = () => {
         setSpaces(null);
         const url = new URL(window.location.protocol + "//" + window.location.host);
         url.pathname = ENDPOINTS.getSpaces;
+        if (page > 1) url.searchParams.append("page", `${page}`);
         if (type) url.searchParams.append("type", type);
         if (cupo) url.searchParams.append("cupo", cupo);
         fetch(url.toString())

@@ -9,6 +9,7 @@ type LoginContextContainer = {
     id?: number | string,
     pwd?: string,
     perma: boolean,
+    isLogging: boolean,
     setId: Dispatch<SetStateAction<string>>,
     setPwd: Dispatch<SetStateAction<string>>,
     setPerma: Dispatch<SetStateAction<boolean>>,
