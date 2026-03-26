@@ -24,13 +24,12 @@ const Login: React.FC = () => <div className="w-full min-h-screen flex items-cen
                     </div>
 
                     {/* Remember Me */}
-                    <div className="flex items-center gap-2">
+                    <label className="flex items-center gap-2">
                         <UserRemember />
-                        <label className="flex items-center gap-2 cursor-pointer flex-1">
-                            <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500" />
+                        <div className="flex items-center gap-2 cursor-pointer flex-1">
                             <span className="text-xs text-gray-700">Recordarme</span>
-                        </label>
-                    </div>
+                        </div>
+                    </label>
 
                     {/* Login Buttons */}
                     <div className="space-y-2 pt-1">
