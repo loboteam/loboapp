@@ -1,11 +1,14 @@
 import { Badge, GlassCard } from "@/components/min/legacygeneric";
 import { ICONS } from "@/lib/constants";
 import { OpenReservationButton, SpaceParams } from "@/stores/space";
+import { useMouseTilt } from "@/lib/hooks";
 
 export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
     const isBusy = (time: number) => space.taken && Array.isArray(space.taken) ? space.taken.some(r=>time > r.from && time < r.to) : false;
-    
+    const tilt = useMouseTilt<HTMLDivElement>();
+
     return (
+        <div ref={tilt.ref} onMouseMove={tilt.onMouseMove} onMouseLeave={tilt.onMouseLeave} style={{willChange: 'transform'}}>
         <GlassCard className="flex flex-col gap-6 overflow-hidden group hover:shadow-lg transition-shadow">
             {/* Header */}
             <div className="flex flex-col gap-3">
@@ -55,6 +58,7 @@ export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
                 <OpenReservationButton space={space} status={space.status} />
             </div>
         </GlassCard>
+        </div>
     );
 };
 

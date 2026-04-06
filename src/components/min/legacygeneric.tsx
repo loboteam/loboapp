@@ -1,5 +1,22 @@
+"use client";
 import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { APP_THEME } from "@/lib/constants";
+import { useScrollReveal } from "@/lib/hooks";
+
+export const AnimatedCard: React.FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({
+    children, delay = 0, className = ''
+}) => {
+    const { ref, visible } = useScrollReveal();
+    return (
+        <div
+            ref={ref}
+            className={`scroll-reveal ${visible ? 'visible' : ''} ${className}`}
+            style={{ transitionDelay: `${delay}ms` }}
+        >
+            {children}
+        </div>
+    );
+};
 
 export const GlassCard: React.FC<{
   children: React.ReactNode,
@@ -114,10 +131,13 @@ export const Modal: React.FC<{
   title: string,
   children: React.ReactNode
 }> = ({ isOpen, onClose, title, children }) => {
-  if (!isOpen) return null;
+  const state = isOpen ? 'open' : 'closed';
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm fade-in">
-      <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-xl bg-white">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm modal-overlay ${state}`}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className={`w-full max-w-lg rounded-lg overflow-hidden shadow-xl bg-white modal-card ${state}`}>
         <div className="p-6 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
