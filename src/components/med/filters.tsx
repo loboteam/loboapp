@@ -3,7 +3,7 @@ import { GlassCard, Input } from "@/components/min/legacygeneric";
 import { useSpace } from "@/stores/space";
 
 const Filters: React.FC = () => {
-    const { type, setType, time, setTime, cupo, setCupo, rating, setRating, edif, setEdif } = useSpace();
+    const { type, setType, time, setTime, cupo, setCupo, edif, setEdif } = useSpace();
     return (
         <GlassCard className="p-6">
             <h3 className="text-lg font-bold text-gray-900 mb-6">Filtrar espacios</h3>
@@ -26,15 +26,17 @@ const Filters: React.FC = () => {
                         {value: '20', label: '20+ personas'}
                     ]} 
                 />
-                <Input 
-                    label="Duración" 
-                    type="select" 
+                <Input
+                    label="Duración"
+                    type="select"
+                    value={time ?? ''}
+                    bindTo={setTime}
                     options={[
                         {value: '', label: 'Cualquiera'},
-                        {value: '1', label: '1 Hora'}, 
-                        {value: '2', label: '2 Horas'}, 
+                        {value: '1', label: '1 Hora'},
+                        {value: '2', label: '2 Horas'},
                         {value: '3', label: '3 Horas'}
-                    ]} 
+                    ]}
                 />
                 <Input 
                     label="Ubicación" 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Filters from '@/components/med/filters';
+import AISearch from '@/components/med/aisearch';
 import SpaceCollection from '@/components/med/spacecollection';
 import SpaceContext from '@/stores/space';
 import Reserve from '@/components/med/reserve';
@@ -19,6 +20,7 @@ const Reservations: React.FC = () => {
         </IfNotLogged>
         <IfLogged>
             <SpaceContext>
+                <AISearch />
                 <Filters />
                 <SpaceCollection/>
                 <Reserve/>

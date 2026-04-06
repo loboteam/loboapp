@@ -40,7 +40,9 @@ interface SpaceContainer {
     hora: number | null,
     setHora: Dispatch<SetStateAction<number | null>>,
     lon: number,
-    setLon: Dispatch<SetStateAction<number>>
+    setLon: Dispatch<SetStateAction<number>>,
+    aiExplanation: string | null,
+    setAiExplanation: Dispatch<SetStateAction<string | null>>
 };
 
 export const SpaceContext_Bare = createContext<SpaceContainer | null>(null);
@@ -56,8 +58,9 @@ const SpaceContext: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const [edif, setEdif] = useState<string | null>(null);
     const [hora, setHora] = useState<number | null>(null);
     const [lon, setLon] = useState<number>(1);
+    const [aiExplanation, setAiExplanation] = useState<string | null>(null);
 
-    return <SpaceContext_Bare.Provider value={{ currentSpace, selectSpace, selecting, toggleSelecting, spaces, setSpaces, type, setType, time, setTime, cupo, setCupo, rating, setRating, edif, setEdif, hora, setHora, lon, setLon }}>{children}</SpaceContext_Bare.Provider>
+    return <SpaceContext_Bare.Provider value={{ currentSpace, selectSpace, selecting, toggleSelecting, spaces, setSpaces, type, setType, time, setTime, cupo, setCupo, rating, setRating, edif, setEdif, hora, setHora, lon, setLon, aiExplanation, setAiExplanation }}>{children}</SpaceContext_Bare.Provider>
 };
 
 export const useSpace = () => {
