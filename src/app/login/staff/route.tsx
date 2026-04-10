@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
         return new NextResponse(JSON.stringify({
                 id,
                 name: "Sample Staff",
-                token: jwt.sign({ id, name: "Sample Staff", admin: false, staff: true }, "samplesecretkey"),
+                token: jwt.sign({ id, name: "Sample Staff", admin: false, staff: true }, process.env.JWT_SECRET || "samplesecretkey", { expiresIn: "2h" }),
                 admin: false,
                 staff: true
         }));
@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
         return new NextResponse(JSON.stringify({
                 id,
                 name: "Sample Admin",
-                token: jwt.sign({ id, name: "Sample Admin", admin: true, staff: true }, "samplesecretkey"),
+                token: jwt.sign({ id, name: "Sample Admin", admin: true, staff: true }, process.env.JWT_SECRET || "samplesecretkey", { expiresIn: "2h" }),
                 admin: true,
                 staff: true
         }));
