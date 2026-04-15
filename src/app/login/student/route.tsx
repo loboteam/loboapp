@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
         return new NextResponse(JSON.stringify({
                 id,
                 name: "Sample Student",
-                token: jwt.sign({ id, name: "Sample Staff", admin: false, staff: false }, "samplesecretkey"),
+                token: jwt.sign({ id, name: "Sample Student", admin: false, staff: false }, process.env.JWT_SECRET || "samplesecretkey", { expiresIn: "2h" }),
                 admin: false,
                 staff: false
         }));

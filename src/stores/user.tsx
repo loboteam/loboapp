@@ -42,7 +42,27 @@ export const useUser = () => {
 const UserContext: React.FC<{children: React.ReactNode}> = ({ children }) => {
     const [user, setUser] = useState<User | undefined>(undefined);
 
-    useEffect(()=>setUser(userJwt()),[])
+    useEffect(() => {
+        const localUsr = userJwt();
+        if (localUsr?.token) {
+            // Verificación Activa
+            fetch("/api/session/verify", {
+                headers: { "Authorization": "Bearer " + localUsr.token }
+            }).then(r => {
+                if (r.status === 401) {
+                    console.warn("JWT expired or invalid! Logging out...");
+                    localClear().then(() => setUser(undefined));
+                } else {
+                    setUser(localUsr);
+                }
+            }).catch(e => {
+                // Fallback (ej. sin internet)
+                setUser(localUsr);
+            });
+        } else {
+            setUser(localUsr);
+        }
+    }, []);
 
     const logOut = ()=>localClear().then(()=>setUser(undefined));
 
