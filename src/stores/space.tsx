@@ -2,13 +2,8 @@
 import { Button } from "@/components/min/legacygeneric";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
-export interface ReservationTime {
-    from: number,
-    to: number
-};
-
 export interface SpaceParams {
-    taken: ReservationTime[],
+    taken: string[],
     abre: number,
     cierra: number,
     location: string, // edif
@@ -17,6 +12,7 @@ export interface SpaceParams {
     type: string, // tipos(nombre)
     rating: number | null, // reviews(avg(rating))
     cupo: number,
+    max: number,
     number: number // of_edif
 };
 
@@ -40,7 +36,9 @@ interface SpaceContainer {
     hora: number | null,
     setHora: Dispatch<SetStateAction<number | null>>,
     lon: number,
-    setLon: Dispatch<SetStateAction<number>>
+    setLon: Dispatch<SetStateAction<number>>,
+    aiExplanation: string | null,
+    setAiExplanation: Dispatch<SetStateAction<string | null>>
 };
 
 export const SpaceContext_Bare = createContext<SpaceContainer | null>(null);
@@ -56,8 +54,9 @@ const SpaceContext: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const [edif, setEdif] = useState<string | null>(null);
     const [hora, setHora] = useState<number | null>(null);
     const [lon, setLon] = useState<number>(1);
+    const [aiExplanation, setAiExplanation] = useState<string | null>(null);
 
-    return <SpaceContext_Bare.Provider value={{ currentSpace, selectSpace, selecting, toggleSelecting, spaces, setSpaces, type, setType, time, setTime, cupo, setCupo, rating, setRating, edif, setEdif, hora, setHora, lon, setLon }}>{children}</SpaceContext_Bare.Provider>
+    return <SpaceContext_Bare.Provider value={{ currentSpace, selectSpace, selecting, toggleSelecting, spaces, setSpaces, type, setType, time, setTime, cupo, setCupo, rating, setRating, edif, setEdif, hora, setHora, lon, setLon, aiExplanation, setAiExplanation }}>{children}</SpaceContext_Bare.Provider>
 };
 
 export const useSpace = () => {
@@ -74,7 +73,7 @@ export const OpenReservationButton: React.FC<{status: boolean, space: SpaceParam
     disabled={!status}
     onClick={() => { selectSpace(space); toggleSelecting(true); }}
     >
-        {status ? 'Confirmar Reserva' : 'Mantenimiento'}
+        {status ? 'Reservar' : 'En Mantenimiento'}
     </Button>
 };
 

@@ -38,8 +38,9 @@ export const Button: React.FC<{
   className?: string,
   onClick?: MouseEventHandler<HTMLButtonElement>,
   disabled?: boolean,
-  icon?: React.ReactNode
-}> = ({ children, variant = 'primary', size = 'md', className = '', onClick, disabled, icon }) => {
+  icon?: React.ReactNode,
+  loading?: boolean
+}> = ({ children, variant = 'primary', size = 'md', className = '', onClick, disabled, icon, loading = false }) => {
     "use client";
     const base = "inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
@@ -59,7 +60,7 @@ export const Button: React.FC<{
     return (
         <button className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} onClick={onClick} disabled={disabled}>
         {icon}
-        {children}
+        {loading ? <div className="w-4 h-4 border-4 border-gray-200 border-t-green-600 rounded-full spinner"></div> : children}
         </button>
     );
 };
@@ -116,8 +117,8 @@ export const Modal: React.FC<{
 }> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm fade-in">
-      <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-xl bg-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm fade-in" onClick={onClose}>
+      <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-xl bg-white" onClick={e=>e.stopPropagation()}>
         <div className="p-6 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900">{title}</h2>

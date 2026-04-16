@@ -17,13 +17,14 @@ type UserContextContainer = {
     logOut: () => Promise<void>
 };
 
-const userJwt = () => {
+export const userJwt = () => {
     const s = localStorage.getItem("token");
     if (!s) return undefined;
     const dec = jwt.decode(s, { json: true });
     if (!dec) return undefined;
     try {
         let h = dec as User;
+        h.token = s;
         return h;
     } catch (e) {
         console.error(`invalid token payload! got ${e}`);
@@ -46,7 +47,7 @@ const UserContext: React.FC<{children: React.ReactNode}> = ({ children }) => {
         const localUsr = userJwt();
         if (localUsr?.token) {
             // Verificación Activa
-            fetch("/api/session/verify", {
+            fetch("/verify", {
                 headers: { "Authorization": "Bearer " + localUsr.token }
             }).then(r => {
                 if (r.status === 401) {

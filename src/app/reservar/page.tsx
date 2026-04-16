@@ -1,8 +1,9 @@
 import React from 'react';
 import Filters from '@/components/med/filters';
+import AISearch from '@/components/med/aisearch';
 import SpaceCollection from '@/components/med/spacecollection';
 import SpaceContext from '@/stores/space';
-import Reserve from '@/components/med/reserve';
+import Book from '@/components/med/book';
 import { IfLogged, IfNotLogged } from '@/stores/user';
 import Login from '@/components/layout/login';
 
@@ -19,9 +20,10 @@ const Reservations: React.FC = () => {
         </IfNotLogged>
         <IfLogged>
             <SpaceContext>
+                <AISearch />
                 <Filters />
                 <SpaceCollection/>
-                <Reserve/>
+                <Book/>
             </SpaceContext>
         </IfLogged>
     </div>;

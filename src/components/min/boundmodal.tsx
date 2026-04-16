@@ -1,6 +1,6 @@
 import { Button, Modal } from "@/components/min/legacygeneric";
 
-const BoundModal: React.FC<{ children: React.ReactNode, to: boolean, triggering: ()=>void, cancel?: ()=>void }> = ({ children, to, triggering, cancel=null }) => <Modal isOpen={to} onClose={triggering} title="Formulario de Confirmación">
+const BoundModal: React.FC<{ children: React.ReactNode, to: boolean, triggering: ()=>void, cancel?: ()=>void }> = ({ children, to, triggering, cancel=null }) => <Modal isOpen={to} onClose={cancel? cancel: ()=>{}} title="Formulario de Confirmación">
     <div className="space-y-6">
         {children}
         <div className="flex gap-4 pt-4">

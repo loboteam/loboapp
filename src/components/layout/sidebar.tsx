@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => <aside className="hidden md:flex flex-col w-64 b
         <ALink to="/reservar" icon={ICONS.Reservations} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
             Reservar
         </ALink>
-        <ALink to="/mis-reservas" icon={ICONS.MyReservations} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
+        <ALink to="/my" icon={ICONS.MyReservations} classes={["flex", "items-center", "gap-3", "px-4", "py-3", "rounded-lg", "text-gray-700", "hover:bg-green-50", "hover:text-green-600", "transition-all", "duration-200"]}>
             Mis Reservas
         </ALink>
     </nav>
