@@ -1,6 +1,7 @@
 import { GlassCard } from "@/components/min/legacygeneric";
 import { ICONS } from "@/lib/constants";
-import { OpenReservationButton, SpaceParams } from "@/stores/space";
+import { KillSpace, OpenReservationButton, SpaceParams } from "@/stores/space";
+import { IfAdmin } from "@/stores/user";
 
 export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
     const isBusy = (time: number) => space.taken && Array.isArray(space.taken) ? space.taken.map(e=>JSON.parse(e)).some(r=>time >= r.from && time < r.to) : false;
@@ -34,25 +35,25 @@ export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
             </div>
 
             {/* Availability */}
-            <div className="border-t border-gray-200 pt-4">
+            {!(space.down) && <div className="border-t border-gray-200 pt-4">
                 <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-3">Disponibilidad por hora</p>
                 <div className="grid grid-cols-6 gap-1.5">
-                    {space.status && Array.from({ length: space.cierra! - space.abre! }).map((_h, i) => (
+                    {Array.from({ length: space.cierra! - space.abre! }).map((_h, i) => (
                         <div key={`hour-${space.sid}-${i}`} className="flex flex-col items-center gap-1">
-                            <div className={`w-full h-10 rounded-md border transition-all duration-300 ${
-                                isBusy(space.abre! + i)
-                                    ? 'bg-red-100 border-red-300'
-                                    : 'bg-green-50 border-green-300 hover:bg-green-100 cursor-pointer'
-                            }`}></div>
+                            <div className={`w-full h-10 rounded-md border transition-all duration-300 ${isBusy(space.abre! + i)
+                                ? 'bg-red-100 border-red-300'
+                                : 'bg-green-50 border-green-300 hover:bg-green-100 cursor-pointer'
+                                }`}></div>
                             <span className="text-[10px] font-semibold text-gray-600">{space.abre! + i}h</span>
                         </div>
                     ))}
                 </div>
-            </div>
+            </div>}
 
             {/* Action Button */}
             <div className="mt-2">
-                <OpenReservationButton space={space} status={space.status} />
+                <OpenReservationButton space={space}/>
+                <IfAdmin><KillSpace space={space}/></IfAdmin>
             </div>
         </GlassCard>
     );

@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
     const res = await sb.schema("public").from("staff").select("id:matricula, name:nombre").eq("matricula", id).eq("phash",pwdHash);
     const isadm = await sb.schema("public").from("admins").select("matricula").eq("is", 'staff').eq("matricula", id);
     if (res.error || res.data?.length !== 1)
-        return new Response("null", {status: 403});
+        return new Response(res.error ? JSON.stringify(res.error) : "null", {status: 403});
     return new NextResponse(JSON.stringify({
             ...(res.data[0]),
             token: jwt.sign({ ...(res.data[0]), admin: (isadm.data?.length ?? 0) > 0, staff: false }, process.env.JWT_SECRET || "samplesecretkey", { expiresIn: "2h" }),

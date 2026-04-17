@@ -1,13 +1,14 @@
 "use client";
 import { Button } from "@/components/min/legacygeneric";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { useUser } from "@/stores/user";
 
 export interface SpaceParams {
     taken: string[],
     abre: number,
     cierra: number,
     location: string, // edif
-    status: boolean, // down
+    down: boolean, // down
     sid: string,
     type: string, // tipos(nombre)
     rating: number | null, // reviews(avg(rating))
@@ -65,15 +66,37 @@ export const useSpace = () => {
     return ctx;
 };
 
-export const OpenReservationButton: React.FC<{status: boolean, space: SpaceParams}> = ({status, space}) => {
+export const OpenReservationButton: React.FC<{space: SpaceParams}> = ({space}) => {
     const { toggleSelecting, selectSpace } = useSpace();
     return <Button
-    variant={status ? 'primary' : 'secondary'}
+    variant={!(space.down) ? 'primary' : 'secondary'}
     className="mt-6 w-full"
-    disabled={!status}
+    disabled={space.down}
     onClick={() => { selectSpace(space); toggleSelecting(true); }}
     >
-        {status ? 'Reservar' : 'En Mantenimiento'}
+        {!(space.down) ? 'Reservar' : 'En Mantenimiento'}
+    </Button>
+};
+
+export const KillSpace: React.FC<{space: SpaceParams}> = ({space}) => {
+    const { user } = useUser();
+    const [loading, setLoading] = useState<boolean>(false);
+    return <Button
+    variant="danger"
+    className="mt-6 w-full"
+    onClick={() => {
+        setLoading(true);
+        fetch(`/managespace?sala=${space.sid}`, {method: space.down ? "PUT" : "DELETE", headers: {"Authorization": `Bearer ${user?.token}`}})
+            .then(r=>{
+                if (!(r.ok)) throw r.text() ?? r.status;
+                space.down = !(space.down);
+            })
+            .catch(console.error)
+            .finally(()=>setLoading(false))
+    }}
+    loading={loading}
+    >
+        {space.down ? "Activar" : "Desactivar"}
     </Button>
 };
 

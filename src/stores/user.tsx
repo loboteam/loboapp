@@ -72,11 +72,11 @@ const UserContext: React.FC<{children: React.ReactNode}> = ({ children }) => {
 
 export const IfAdmin: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useUser();
-    return user?.admin && children;
+    return (user?.admin ?? false) && children;
 };
 export const IfNotAdmin: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useUser();
-    return user && !(user?.admin) && children;
+    return !(user?.admin ?? false) && children;
 };
 export const IfStaff: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useUser();

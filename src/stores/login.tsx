@@ -22,12 +22,15 @@ const LoginContext: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const [perma, setPerma] = useState<boolean>(false);
     const logIn = (staff: boolean=false) => {
         if (id.length > 1 && pwd.length > 1)
-            return sha512(pwd).then(pwdHash => fetch(ENDPOINTS.login[staff ? "staff" : "student"], { method: "POST", body: JSON.stringify({ id, pwdHash }) })).then(r => r.json()).then((r: User | undefined) => {
+            return sha512(pwd).then(pwdHash => fetch(ENDPOINTS.login[staff ? "staff" : "student"], { method: "POST", body: JSON.stringify({ id, pwdHash }) })).then(r => {
+                if (!(r.ok)) throw r.text() ?? r.status
+                return r.json() as Promise<User>;
+            }).then(r => {
                 setUser(r);
                 if (perma) localSet("token", r?.token)
             }).catch(e => console.error("Ack! Bad login action! Got: ", e));
-            throw new Error("incomplete login info!");
-        }
+        throw new Error("incomplete login info!");
+    }
     return <LoginContext_Bare.Provider value={{id, setId, pwd, setPwd, logIn, perma, setPerma}}>{children}</LoginContext_Bare.Provider>
 };
 
