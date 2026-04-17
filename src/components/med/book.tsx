@@ -4,10 +4,12 @@ import { useSpace } from "@/stores/space";
 import { Input } from "@/components/min/legacygeneric";
 import { useUser } from "@/stores/user";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Book: React.FC = () => {
     const { currentSpace, selecting, toggleSelecting, time, setTime } = useSpace();
     const { user } = useUser();
+    const router = useRouter();
     const [bookErr, changeBookErr] = useState<string | null>(null);
 
     if (selecting && !currentSpace) throw new Error("can't select an error that doesn't exist!");
@@ -26,12 +28,8 @@ const Book: React.FC = () => {
         to: parseInt(time) + ((currentSpace?.max ?? 3600) / 3600)
     }) }).then(d=>{
         if (!d.ok) throw d.text() ?? d.status;
-        currentSpace?.taken!.push(JSON.stringify({
-            from: parseInt(time),
-            day: `${D.getFullYear()}-${D.getMonth() < 9 && "0" || ""}${D.getMonth() + 1}-${D.getDate() < 9 && "0" || ""}${D.getDate()}`,
-            to: parseInt(time) + ((currentSpace?.max ?? 3600) / 3600)
-        }))
         toggleSelecting(false);
+        router.refresh();
     }).catch(changeBookErr);
 
     return <BoundModal to={selecting} triggering={tryBook} cancel={()=>toggleSelecting(false)}>

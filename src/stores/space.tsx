@@ -74,11 +74,11 @@ export const OpenReservationButton: React.FC<{space: SpaceParams}> = ({space}) =
     disabled={space.down}
     onClick={() => { selectSpace(space); toggleSelecting(true); }}
     >
-        {!(space.down) ? 'Reservar' : 'En Mantenimiento'}
+        {space.down ? 'En Mantenimiento' : 'Reservar'}
     </Button>
 };
 
-export const KillSpace: React.FC<{space: SpaceParams}> = ({space}) => {
+export const KillSpace: React.FC<{sid: string, down: boolean, bindTo: Dispatch<SetStateAction<boolean>>}> = ({sid, down, bindTo}) => {
     const { user } = useUser();
     const [loading, setLoading] = useState<boolean>(false);
     return <Button
@@ -86,17 +86,17 @@ export const KillSpace: React.FC<{space: SpaceParams}> = ({space}) => {
     className="mt-6 w-full"
     onClick={() => {
         setLoading(true);
-        fetch(`/managespace?sala=${space.sid}`, {method: space.down ? "PUT" : "DELETE", headers: {"Authorization": `Bearer ${user?.token}`}})
+        fetch(`/managespace?sala=${sid}`, {method: down ? "PUT" : "DELETE", headers: {"Authorization": `Bearer ${user?.token}`}})
             .then(r=>{
                 if (!(r.ok)) throw r.text() ?? r.status;
-                space.down = !(space.down);
+                bindTo(()=>!down);
             })
             .catch(console.error)
             .finally(()=>setLoading(false))
     }}
     loading={loading}
     >
-        {space.down ? "Activar" : "Desactivar"}
+        {down ? "Activar" : "Desactivar"}
     </Button>
 };
 

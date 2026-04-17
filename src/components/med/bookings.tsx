@@ -23,13 +23,16 @@ const Bookings: React.FC<{}> = () => {
     useEffect(()=>{
         setLoading(1);
         what(bookings.filter(b => {
+            const D = new Date();
+            const day = new Date(b.day);
+            const done = day.getDate() === D.getDate() && day.getMonth() === D.getMonth() && day.getFullYear() === D.getFullYear() && D.getHours() < b.from;
             switch (currentTab) {
                 case "activas":
-                    return !(b.done) && !(b.cancelled)
+                    return !(done) && !(b.cancelled)
                 case "canceladas":
                     return b.cancelled;
                 case "completadas":
-                    return b.done;
+                    return done;
             }
         }));
         setLoading(0);
