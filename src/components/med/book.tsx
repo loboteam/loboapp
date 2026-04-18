@@ -19,6 +19,7 @@ const Book: React.FC = () => {
         .map((_h,i)=>({value: currentSpace?.abre! + i, label: `${currentSpace?.abre! + i}:00`}))
         .filter((h,i)=>!isBusy(h.value))
     : [];
+    if (currentSpace) setTime(currentSpace.abre)
 
     const D = new Date();
     const tryBook = () => fetch("/book", { method: "POST", headers: { "Authorization": "Bearer " + user?.token }, body: JSON.stringify({

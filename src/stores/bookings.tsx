@@ -2,7 +2,6 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
 export interface BookingContainer {
-    done: boolean,
     cancelled: boolean,
     day: string,
     from: number,

@@ -25,14 +25,14 @@ const Bookings: React.FC<{}> = () => {
         what(bookings.filter(b => {
             const D = new Date();
             const day = new Date(b.day);
-            const done = day.getDate() === D.getDate() && day.getMonth() === D.getMonth() && day.getFullYear() === D.getFullYear() && D.getHours() < b.from;
+            const done = day.getFullYear() < D.getFullYear() || day.getMonth() < D.getMonth() || day.getDate() < D.getDate() || b.from < D.getHours();
             switch (currentTab) {
                 case "activas":
                     return !(done) && !(b.cancelled)
                 case "canceladas":
                     return b.cancelled;
                 case "completadas":
-                    return done;
+                    return done && !(b.cancelled);
             }
         }));
         setLoading(0);

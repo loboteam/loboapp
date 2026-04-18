@@ -13,9 +13,8 @@ export const GET = async (req: NextRequest) => {
         return new NextResponse(JSON.stringify({ error: "Session expired or invalid token" }), { status: 401 });
     }
 
-    const rs = await sb.schema("public").from("reservas").select("done,cancelled,day,from,to,sala,sala_data(location,type,number,down,cupo)")
+    const rs = await sb.schema("public").from("reservas").select("cancelled,day,from,to,sala,sala_data(location,type,number,down,cupo)")
         .eq("user", validPayload.id)
-        .order("done", {ascending: true})
         .order("cancelled", {ascending: true})
         .order("day", {ascending: true})
         .order("from", {ascending: true})
