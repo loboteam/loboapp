@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.env*
+docker
+*.md
+test-results
+playwright-report
+playwright/.cache

@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/Oliver/Documents/loboapp log --oneline -- src/lib/.env/sb.js)",
+      "Bash(git -C /c/Users/Oliver/Documents/loboapp ls-files)",
+      "Bash(git check-ignore *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git -C /c/Users/Oliver/Documents/loboapp remote -v)",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "Bash(find . -maxdepth 1 -iname \"components.json\")",
+      "Bash(find src *)",
+      "Bash(find . -maxdepth 2 -iname \"*shadcn*\")",
+      "Bash(xargs grep -l -i \"login\\\\|iniciar sesión\\\\|password\\\\|pwdHash\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(wc -l .env.local; sed -n 's/=.*//p' .env.local)",
+      "Bash(openssl version *)",
+      "Bash(openssl req *)",
+      "Bash(MSYS_NO_PATHCONV=1 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout docker/nginx/certs/privkey.pem -out docker/nginx/certs/fullchain.pem -subj /C=SV/ST=Local/L=Local/O=LoboApp/CN=localhost)",
+      "Bash(docker compose *)",
+      "Bash(powershell -Command \"Get-Process 'Docker Desktop' -ErrorAction SilentlyContinue\")",
+      "Read(//c/Program Files/Docker/Docker/**)",
+      "Bash(\"/c/Program Files/Docker/Docker/Docker Desktop.exe\")",
+      "Bash(disown)",
+      "Bash(curl -sI http://localhost)",
+      "Bash(curl -skI https://localhost)",
+      "Bash(where mkcert *)",
+      "Bash(where choco *)",
+      "Bash(where scoop *)",
+      "PowerShell(choco install mkcert -y)",
+      "PowerShell(& \"$env:LOCALAPPDATA\\\\mkcert\\\\mkcert.exe\" -install)",
+      "Bash(curl -sI https://localhost)",
+      "Bash(curl -vI https://localhost)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Oliver\\Documents\\loboapp"
+    ]
+  }
+}

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
 import sb from "@/lib/.env/sb";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+let groq: Groq | null = null;
+const getGroq = () => (groq ??= new Groq({ apiKey: process.env.GROQ_API_KEY }));
 
 const SYSTEM_PROMPT = `Eres un asistente que interpreta búsquedas de salas universitarias en español.
 Devuelve SOLO un JSON válido, sin markdown ni texto adicional.
@@ -44,7 +45,7 @@ export const POST = async (req: NextRequest) => {
         return NextResponse.json({ error: "Consulta inválida" }, { status: 400 });
     }
 
-    const chat = await groq.chat.completions.create({
+    const chat = await getGroq().chat.completions.create({
         model: "llama-3.1-8b-instant",
         max_tokens: 150,
         temperature: 0,

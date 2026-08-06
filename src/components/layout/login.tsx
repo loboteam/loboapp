@@ -2,6 +2,7 @@ import React from 'react';
 import { GlassCard } from "@/components/min/legacygeneric";
 import LoginContext from '@/stores/login';
 import { UserLoginButtons, UserPwdBoxes, UserRemember } from '@/components/min/login';
+import ALink from '@/components/min/alink';
 
 const Login: React.FC = () => <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
     <div className="w-full max-w-sm fade-in">
@@ -43,8 +44,15 @@ const Login: React.FC = () => <div className="w-full min-h-screen flex items-cen
                 </LoginContext>
             </form>
 
-            {/* Support Link */}
+            {/* Register Link */}
             <div className="mt-5 pt-4 border-t border-gray-200 text-center">
+                <ALink to="/registro" classes="text-xs font-semibold text-green-600 hover:text-green-700 transition-all">
+                    ¿No tienes cuenta? Regístrate
+                </ALink>
+            </div>
+
+            {/* Support Link */}
+            <div className="mt-3 text-center">
                 <button className="text-xs font-semibold text-green-600 hover:text-green-700 transition-all">
                     ¿Problemas? Contacta a Soporte
                 </button>

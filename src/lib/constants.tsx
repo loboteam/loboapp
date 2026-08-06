@@ -69,6 +69,7 @@ export const ENDPOINTS = {
         staff: "/login/staff",
         student: "/login/student"
     },
+    register: "/api/register",
     getSpaces: "/spaces",
     newReservation: "",
     killReservation: "",

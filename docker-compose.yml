@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: loboapp
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    expose:
+      - "3000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: loboapp-nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/certs:/etc/nginx/certs:ro
