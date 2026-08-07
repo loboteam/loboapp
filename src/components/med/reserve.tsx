@@ -17,7 +17,7 @@ const Reserve: React.FC = () => {
 
     return <BoundModal to={selecting} triggering={()=>toggleSelecting(false)} cancel={()=>toggleSelecting(false)}>
         <span className="text-[10px] font-black text-teal-400 uppercase tracking-widest">Confirmar reservación?</span>
-        <h4 className="text-xl text-slate-700 mt-1"><span className="font-bold">{currentSpace?.type} { currentSpace?.number }</span></h4>
+        <h3 className="text-xl text-slate-700 mt-1"><span className="font-bold">{currentSpace?.type} { currentSpace?.number }</span></h3>
         <p className="font-semibold text-slate-500">Edificio {currentSpace?.location}</p>
         <div className="grid grid-cols-2 gap-4">
             <Input label="Hora" type="select" value={time} options={timeOptions} bindTo={setTime} />

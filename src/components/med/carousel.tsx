@@ -47,7 +47,7 @@ const FeaturedCarousel: React.FC = () => {
             onMouseLeave={() => setPaused(false)}
         >
             <div className="px-6 pt-5 pb-2 border-b border-gray-100">
-                <h3 className="text-base font-bold text-gray-900">Espacios Destacados</h3>
+                <h2 className="text-base font-bold text-gray-900">Espacios Destacados</h2>
             </div>
 
             {/* Slide area */}
@@ -68,9 +68,9 @@ const FeaturedCarousel: React.FC = () => {
                                 {isAvailable ? "Disponible" : "En mantenimiento"}
                             </Badge>
                         </div>
-                        <h4 className="text-lg font-bold text-gray-900 truncate">
+                        <h3 className="text-lg font-bold text-gray-900 truncate">
                             {space.type} {space.number}
-                        </h4>
+                        </h3>
                         <p className="text-sm text-gray-500 truncate">
                             Edificio {space.location} &middot; Hasta {space.cupo} personas
                         </p>

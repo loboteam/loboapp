@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { MobileMenuButton } from "@/stores/layoutstate";
 import "./globals.css";
 import { APP_THEME } from "@/lib/constants";
@@ -7,9 +8,14 @@ import Sidebar from "@/components/layout/sidebar";
 import UserContext, { IfLogged } from "@/stores/user";
 import { Breadcrumbs } from "@/components/min/alink";
 
+export const metadata: Metadata = {
+    title: "LoboApp - Sistema de Reservaciones",
+    description: "Sistema de reservación de espacios universitarios: encuentra y reserva salas, laboratorios y espacios del campus.",
+};
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    return <html><body className="min-h-screen flex flex-col md:flex-row bg-gray-50"><MobileMenuContext>
+    return <html lang="es"><body className="min-h-screen flex flex-col md:flex-row bg-gray-50"><MobileMenuContext>
         <UserContext>
             <IfLogged>
                 <Sidebar/>

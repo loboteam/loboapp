@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import React, { Dispatch, MouseEventHandler, SetStateAction, useId } from 'react';
 import { APP_THEME } from "@/lib/constants";
 import { useScrollReveal } from "@/lib/hooks";
 
@@ -91,14 +91,17 @@ export const Input: React.FC<{
     className?: string,
     options?: { value: string | number, label: string }[]
 }> = ({ label, type = 'text', placeholder, value, onChange = null, className = '', options = [], bindTo = null }) => {
+    const generatedId = useId();
+    const inputId = label ? generatedId : undefined;
     const onchange = (e: any) => {
         if (bindTo) bindTo(e?.target?.value);
         if (onChange) onChange(e);
     };
     return <div className={`space-y-2 ${className}`}>
-        {label && <label className="text-sm font-semibold text-gray-700">{label}</label>}
+        {label && <label htmlFor={inputId} className="text-sm font-semibold text-gray-700">{label}</label>}
         {type === 'select' ? (
             <select
+                id={inputId}
                 value={value ?? ""}
                 onChange={onchange}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-gray-900 bg-white"
@@ -107,6 +110,7 @@ export const Input: React.FC<{
             </select>
         ) : type === 'textarea' ? (
             <textarea
+                id={inputId}
                 placeholder={placeholder}
                 value={value ?? ""}
                 onChange={onchange}
@@ -115,6 +119,7 @@ export const Input: React.FC<{
             />
         ) : (
             <input
+                id={inputId}
                 type={type}
                 placeholder={placeholder}
                 value={value ?? ""}
@@ -141,7 +146,7 @@ export const Modal: React.FC<{
         <div className="p-6 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-            <button type="button" onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-all text-gray-500">
+            <button type="button" onClick={onClose} aria-label="Cerrar" className="p-2 hover:bg-gray-100 rounded-lg transition-all text-gray-500">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           </div>

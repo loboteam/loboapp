@@ -13,7 +13,7 @@ export const Space: React.FC<{ space: SpaceParams }> = ({space}) => {
             {/* Header */}
             <div className="flex flex-col gap-3">
                 <div>
-                    <h3 className="text-xl font-bold text-gray-900">{space.type} {space.number}</h3>
+                    <h2 className="text-xl font-bold text-gray-900">{space.type} {space.number}</h2>
                     <p className="text-sm text-gray-600">Edificio {space.location}</p>
                 </div>
                 

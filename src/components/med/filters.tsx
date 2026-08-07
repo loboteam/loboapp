@@ -6,7 +6,7 @@ const Filters: React.FC = () => {
     const { type, setType, time, setTime, cupo, setCupo, edif, setEdif } = useSpace();
     return (
         <GlassCard className="p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-6">Filtrar espacios</h3>
+            <h2 className="text-lg font-bold text-gray-900 mb-6">Filtrar espacios</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Input 
                     label="Tipo de espacio" 

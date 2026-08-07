@@ -60,7 +60,7 @@ const AISearch: React.FC = () => {
                     </svg>
                 </div>
                 <div>
-                    <h3 className="text-sm font-bold text-gray-900">Búsqueda inteligente</h3>
+                    <h2 className="text-sm font-bold text-gray-900">Búsqueda inteligente</h2>
                     <p className="text-xs text-gray-500">Describe con tus palabras lo que necesitas</p>
                 </div>
             </div>
@@ -82,6 +82,7 @@ const AISearch: React.FC = () => {
                         onClick={clear}
                         className="px-3 py-2.5 text-gray-400 hover:text-gray-600 transition-colors"
                         title="Limpiar"
+                        aria-label="Limpiar búsqueda"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

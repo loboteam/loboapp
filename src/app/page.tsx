@@ -35,7 +35,7 @@ const Dash = () => <div className="space-y-8 fade-in">
                         <div className="w-12 h-12 rounded-lg bg-green-100 text-green-600 flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
                             {ICONS.Reservations}
                         </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">Nueva Reservación</h3>
+                        <h2 className="text-lg font-bold text-gray-900 mb-2">Nueva Reservación</h2>
                         <p className="text-sm text-gray-600">Reserva un espacio disponible en el campus</p>
                     </div>
                 </GlassCard>
@@ -49,7 +49,7 @@ const Dash = () => <div className="space-y-8 fade-in">
                         <div className="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                             {ICONS.MyReservations}
                         </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">Mis Reservas</h3>
+                        <h2 className="text-lg font-bold text-gray-900 mb-2">Mis Reservas</h2>
                         <p className="text-sm text-gray-600">Consulta y gestiona tus reservaciones</p>
                     </div>
                 </GlassCard>
@@ -64,7 +64,7 @@ const Dash = () => <div className="space-y-8 fade-in">
                             <div className="w-12 h-12 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
                                 {ICONS.Stats}
                             </div>
-                            <h3 className="text-lg font-bold text-gray-900 mb-2">Estadísticas</h3>
+                            <h2 className="text-lg font-bold text-gray-900 mb-2">Estadísticas</h2>
                             <p className="text-sm text-gray-600">Analiza el rendimiento del campus</p>
                         </div>
                     </GlassCard>
@@ -82,7 +82,7 @@ const Dash = () => <div className="space-y-8 fade-in">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
             <AnimatedCard delay={0}>
                 <GlassCard>
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">Avisos Importantes</h3>
+                    <h2 className="text-lg font-bold text-gray-900 mb-4">Avisos Importantes</h2>
                     <ul className="space-y-3">
                         {[
                             'Actualización de políticas de reserva para el próximo ciclo.',
@@ -100,7 +100,7 @@ const Dash = () => <div className="space-y-8 fade-in">
 
             <AnimatedCard delay={150}>
                 <GlassCard>
-                    <h3 className="text-lg font-bold text-gray-900 mb-6">Estado del Sistema</h3>
+                    <h2 className="text-lg font-bold text-gray-900 mb-6">Estado del Sistema</h2>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="p-4 bg-green-50 rounded-lg border border-green-200">
                             <div className="text-3xl font-bold text-green-600">08</div>

@@ -24,7 +24,7 @@ export const mobileMenuCtx = ()=> {
 
 export const MobileMenuButton: React.FC<{ children?: React.ReactNode, classes?: string[] }> = ({ children, classes }) => {
     const { toggleMenu } = mobileMenuCtx();
-    return <button onClick={() => toggleMenu()} className={classes?.join(" ")}>
+    return <button onClick={() => toggleMenu()} aria-label="Abrir menú" className={classes?.join(" ")}>
         {children}
     </button>;
 };
