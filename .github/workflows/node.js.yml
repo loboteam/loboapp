@@ -5,12 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "development", "release", "bck-luis", "testing-daniel", "ui-oliver" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "development", "release", "bck-luis", "testing-daniel", "ui-oliver" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
