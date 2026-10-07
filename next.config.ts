@@ -5,6 +5,18 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
       webpackMemoryOptimizations: true
+  },
+  allowedDevOrigins: ['loboapi.cornsnake.fyi'],
+  async headers() {
+      return [
+          {
+              // matching all API routes
+              source: "/:path*",
+              headers: [
+                  { key: "Access-Control-Allow-Origin", value: "http://localhost:8081" }
+              ]
+          }
+      ]
   }
 };
 
