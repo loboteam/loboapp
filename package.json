@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node run tests/auth-flow.spec.ts"
+    "test": "node ./tests/auth-flow.spec.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
