@@ -1,0 +1,39 @@
+# Publica un aviso en el espacio de Google Chat del equipo cuando falla un pipeline.
+# Requiere el secret GCHAT_WEBHOOK_URL (webhook entrante del espacio).
+name: Alerta de fallo
+
+on:
+  workflow_run:
+    workflows: ["Node.js CI", "SonarQube analysis", "Dependency review"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  google-chat:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Avisar en Google Chat
+        env:
+          WEBHOOK_URL: |
+            https://chat.googleapis.com/v1/spaces/${{secrets.GCHAT_SPACE}}/messages?key=${{secrets.GCHAT_WEBHOOK_KEY}}
+          RUN: ${{ toJSON(github.event.workflow_run) }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "::error::Falta el secret GCHAT_WEBHOOK_URL"
+            exit 1
+          fi
+          if [ "$RUN" = "null" ]; then
+            MENSAJE=$(jq -n '{text: "✅ Prueba de alertas de LoboAPP CI"}')
+          else
+            MENSAJE=$(jq -n --argjson r "$RUN" '{text: (
+              "❌ *\($r.name)* falló en `\($r.head_branch)`\n" +
+              "Commit: \($r.head_commit.message | split("\n")[0])\n" +
+              "Autor: \($r.actor.login)\n" +
+              "<\($r.html_url)|Ver ejecución>")}')
+          fi
+          curl --fail -sS -X POST \
+            -H 'Content-Type: application/json; charset=UTF-8' \
+            -d "$MENSAJE" "$WEBHOOK_URL"
