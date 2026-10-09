@@ -21,3 +21,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+// Esta es la prueba 1500 para snoarqube y su integracion con gchat para enviar errores durante las pruebas.
