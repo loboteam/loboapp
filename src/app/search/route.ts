@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
-import sb from "@/lib/.env/sb";
+import sb from "@/lib/.env/sb.js";
+import GROQ_API_KEY from "@/lib/.env/groq.js";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groq = new Groq({ apiKey: GROQ_API_KEY });
 
 const SYSTEM_PROMPT = `Eres un asistente que interpreta búsquedas de salas universitarias en español.
 Devuelve SOLO un JSON válido, sin markdown ni texto adicional.
@@ -16,9 +17,9 @@ Estructura: {"type":string|null,"cupo_min":number|null,"cupo_max":number|null,"e
 - null: si el usuario no menciona ningún uso específico o la búsqueda es solo por capacidad/ubicación.
 
 === EDIFICIOS (valores exactos) ===
-- "H (Biblioteca)": biblioteca, edificio H, sala H, edificio de la biblioteca.
-- "F": edificio F, laboratorios F, sala F.
-- null: si no se menciona edificio o ubicación.
+- "H (Biblioteca)": biblioteca, edificio H, sala H, edificio de la biblioteca, el H.
+- "F": edificio F, laboratorios F, sala F, el F.
+- null: si no se menciona edificio o ubicación, o se menciona un edificio no incluido en esta lista.
 
 === CAPACIDAD ===
 REGLA: cupo_min = mínimo de personas que debe caber. cupo_max = máximo de personas que se desea.
@@ -36,7 +37,9 @@ REGLA: cupo_min = mínimo de personas que debe caber. cupo_max = máximo de pers
 "laboratorio de computadoras en edificio F" → {"type":"Lab. de Computación","cupo_min":null,"cupo_max":null,"edif":"F","explanation":"Laboratorio de cómputo en Edificio F"}
 "sala para menos de 5 personas" → {"type":null,"cupo_min":null,"cupo_max":5,"edif":null,"explanation":"Sala pequeña para hasta 5 personas"}
 "sala para 15 personas en la biblioteca" → {"type":"Sala de Lectura","cupo_min":15,"cupo_max":null,"edif":"H (Biblioteca)","explanation":"Sala de lectura para 15 personas en la Biblioteca"}
-"sala de descanso pequeña" → {"type":"Sala de Descanso","cupo_min":null,"cupo_max":10,"edif":null,"explanation":"Sala de descanso de capacidad reducida"}`;
+"sala de descanso pequeña" → {"type":"Sala de Descanso","cupo_min":null,"cupo_max":10,"edif":null,"explanation":"Sala de descanso de capacidad reducida"}
+"el P" → {"type": null,"cupo_min":null,"cupo_max":null,"edif":null,"explanation":"No se tienen registros en el edificio P"}
+"el F" → {"type": null,"cupo_min":null,"cupo_max":null,"edif": "F","explanation":"Cualquier espacio en el edificio F"}`;
 
 export const POST = async (req: NextRequest) => {
     const body = await req.json().catch(() => null);
@@ -45,7 +48,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     const chat = await groq.chat.completions.create({
-        model: "llama-3.1-8b-instant",
+        model: "qwen/qwen3.8-27b",
         max_tokens: 150,
         temperature: 0,
         response_format: { type: "json_object" },
