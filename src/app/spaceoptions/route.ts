@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
     const tipo = await sb.schema("public").from("tipos").select('value: tid, label: nombre');
     const edif = await sb.schema("public").from("edificios").select('value: eid, label: eid');
 
-    if (tipo.error || edif.error) return new NextResponse(JSON.stringify(tipo.error ?? edif.error), {status: 500});
+    if (tipo.error || edif.error) return new NextResponse(JSON.stringify(tipo.error || edif.error), {status: 500});
 
     return new NextResponse(JSON.stringify({tipo: tipo.data, edif: edif.data}));
 };
