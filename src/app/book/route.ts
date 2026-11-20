@@ -41,7 +41,7 @@ export const DELETE = async (req: NextRequest) => {
 
     const d = await sb.schema("public").from("reservas").update({cancelled: true}).eq("user", validPayload.id).eq("day", day).eq("from", from).eq("sala", sala);
 
-    if (d.error) return new NextResponse(JSON.stringify(rs.error), {status: 500});
+    if (d.error) return new NextResponse(JSON.stringify(d.error), {status: 500});
 
     return new NextResponse("ok");
 };
