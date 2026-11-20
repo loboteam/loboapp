@@ -1,0 +1,17 @@
+name: Google Chat Notification
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Google Chat notification
+        uses: w00khyung/google-chat-webhook-action@v1
+        with:
+          webhook_url: |
+            https://chat.googleapis.com/v1/spaces/${{secrets.GCHAT_SPACE}}/messages?key=${{secrets.GCHAT_WEBHOOK_KEY}}
+          title: 'Deployment Started: ${{ github.repository }}'
