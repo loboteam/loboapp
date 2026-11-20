@@ -16,7 +16,7 @@ const Booking: React.FC<{data: BookingContainer}> = ({data}) =>{
                     <h3 className="text-xl font-bold text-gray-900">{data.sala_data.type} {data.sala_data.number}</h3>
                     <Badge variant="success">{data.cancelled ? "Cancelada" : done ? "Completada" : "Activa"}</Badge>
                 </div>
-                <p className="text-sm text-slate-400">Edificio {data.sala_data.location} • {d.toLocaleDateString(navigator.language, { weekday: "long", month: 'long', day: 'numeric' })} • {data.from}:00–{data.to}:00</p>
+                <p className="text-sm text-slate-400">Edificio {data.sala_data.location} • {d.toLocaleDateString(navigator.userLanguage ?? navigator.language, { weekday: "long", month: 'long', day: 'numeric' })} • {data.from}:00–{data.to}:00</p>
             </div>
             {!(data.cancelled || done) && <div className="flex gap-2">
                 <QRButton data={minData} />
