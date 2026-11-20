@@ -1,6 +1,7 @@
 import sb from "@/lib/.env/sb";
 import { LoginRequest } from "@/lib/promisd";
 import jwt from "jsonwebtoken";
+import { jwtSecret } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
@@ -11,7 +12,7 @@ export const POST = async (req: Request) => {
         return new Response(res.error ? JSON.stringify(res.error) : "null", {status: 403});
     return new NextResponse(JSON.stringify({
             ...(res.data[0]),
-            token: jwt.sign({ ...(res.data[0]), admin: (isadm.data?.length ?? 0) > 0, staff: false }, process.env.JWT_SECRET || "samplesecretkey", { expiresIn: "2h" }),
+            token: jwt.sign({ ...(res.data[0]), admin: (isadm.data?.length ?? 0) > 0, staff: false }, jwtSecret(), { expiresIn: "2h" }),
             admin: (isadm.data?.length ?? 0) > 0,
             staff: false
     }));
